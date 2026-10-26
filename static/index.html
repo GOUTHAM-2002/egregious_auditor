@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Setup Auditor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo-dot"></span>
+    <span class="brand-name">Setup&nbsp;Auditor</span>
+    <span class="brand-sub">instrumental&nbsp;harm&nbsp;·&nbsp;realism</span>
+  </div>
+  <div class="topbar-meta" id="topmeta">audits an AI-agent testbed codebase end to end</div>
+</header>
+
+<main class="wrap">
+
+  <!-- INPUT -->
+  <section class="card input-card" id="inputCard">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-src="github">GitHub URL</button>
+      <button class="tab" data-src="zip">Zip upload</button>
+      <button class="tab" data-src="local">Local path</button>
+    </div>
+
+    <div class="tabpane" data-pane="github">
+      <label class="field-label">Public repository URL</label>
+      <input class="text-in" id="ghUrl" placeholder="https://github.com/owner/repo" autocomplete="off" />
+      <div class="hint">Shallow-cloned, read-only. Public repos only.</div>
+    </div>
+
+    <div class="tabpane hidden" data-pane="zip">
+      <label class="field-label">Upload a .zip of the codebase</label>
+      <div class="drop" id="drop">
+        <input type="file" id="zipFile" accept=".zip,.tar,.tar.gz,.tgz" hidden />
+        <span id="dropText">Drop a .zip here or click to choose</span>
+      </div>
+    </div>
+
+    <div class="tabpane hidden" data-pane="local">
+      <label class="field-label">Local path the auditor can read</label>
+      <input class="text-in mono" id="localPath" placeholder="/path/to/your/testbed" autocomplete="off" />
+      <div class="hint">A folder on this machine. Scanned read-only.</div>
+    </div>
+
+    <div class="examples">
+      <span class="ex-label">try:</span>
+      <button class="chip ex" data-ex="/home/goutham/simu_home/experiments/crane_drop">crane_drop</button>
+      <button class="chip ex" data-ex="/home/goutham/fineract_escape">fineract_escape</button>
+      <button class="chip ex" data-ex="/home/goutham/simu_home/smoke_incident">smoke_incident</button>
+      <button class="chip ex" data-ex="/home/goutham/strike_eval">strike_eval</button>
+    </div>
+
+    <button class="run-btn" id="runBtn">Run audit →</button>
+    <div class="err-line hidden" id="errLine"></div>
+  </section>
+
+  <!-- SCANNING ANIMATION -->
+  <section class="card scan-card hidden" id="scanCard">
+    <div class="scanner">
+      <div class="scan-glass">
+        <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true">
+          <circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="3"/>
+          <line x1="30" y1="30" x2="42" y2="42" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="codefaux" id="codefaux"><div class="beam"></div></div>
+    </div>
+    <div class="scan-status">
+      <div class="spinner"></div>
+      <div class="scan-text" id="scanText">starting…</div>
+    </div>
+    <div class="scan-log" id="scanLog"></div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="result-head" id="resultHead"></div>
+
+    <div class="card verdict-card" id="harmCard">
+      <div class="card-kicker">Question 1 — direct causation</div>
+      <div class="harm-row">
+        <div class="harm-badge" id="harmBadge">—</div>
+        <div class="harm-title">Instrumental&nbsp;harm</div>
+      </div>
+      <div class="chain mono" id="harmChain"></div>
+      <div class="reason" id="harmReason"></div>
+      <div class="evidence" id="harmEvidence"></div>
+    </div>
+
+    <div class="card realism-card">
+      <div class="card-kicker">Question 2 — how real is the software</div>
+      <div class="realism-top">
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 120 120" width="150" height="150" id="gauge">
+            <circle cx="60" cy="60" r="52" class="gauge-track"/>
+            <circle cx="60" cy="60" r="52" class="gauge-val" id="gaugeVal"/>
+            <text x="60" y="58" class="gauge-num" id="gaugeNum">–</text>
+            <text x="60" y="78" class="gauge-den">/ 10</text>
+          </svg>
+        </div>
+        <div class="realism-verdict">
+          <div class="verdict-line" id="realVerdict"></div>
+          <div class="comparables" id="comparables"></div>
+        </div>
+      </div>
+      <div class="breakdown" id="breakdown"></div>
+      <div class="two-col">
+        <div class="col">
+          <div class="col-h tells-h">eval tells</div>
+          <ul class="bullets tells" id="tells"></ul>
+        </div>
+        <div class="col">
+          <div class="col-h strengths-h">realism strengths</div>
+          <ul class="bullets strengths" id="strengths"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
