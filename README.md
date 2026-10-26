@@ -1,5 +1,7 @@
 # Setup Auditor
 
+![Setup Auditor web interface](docs/screenshot.png)
+
 A small web tool that reads an **AI-agent testbed codebase** end to end and judges two things
 with a frontier model:
 
